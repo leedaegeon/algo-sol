@@ -1,50 +1,33 @@
 import java.util.*;
 
 class Solution {
-    public int[][] solution(int[][] data, String ext, int val_ext, String sort_by) {
-        int[][] answer = {};
+    public List<int[]> solution(int[][] data, String ext, int val_ext, String sort_by) {
+        
         int[][] tempAnswer = new int[data.length][4];
         String[] cmp = {"code", "date", "maximum", "remain"};
+        Map<String, Integer> category = new HashMap<>();
+        List<int[]> answer = new LinkedList<>();
         
+        for(int i=0; i<4; i++){
+            category.put(cmp[i], i);
+        }
         int idx = 0;
         
-        for(int i=0; i<4; i++){
-            if(ext.equals(cmp[i])){
-                idx = i;
-                break;
-            }
-        }
-        int sortIdx = 0;
-        for(int i=0; i<4; i++){
-            if(sort_by.equals(cmp[i])){
-                sortIdx = i;
-                break;
-            }
-        }
+        idx = category.get(ext);
+        final int finalSortIdx = category.get(sort_by); 
         
         int ansIdx=0;
         for(int i=0; i<data.length; i++){
             if(data[i][idx] < val_ext){
-                tempAnswer[ansIdx++] = data[i];
+                answer.add(data[i]);
             }
         }
-        answer = new int[ansIdx][4];
-        for(int i=0; i<ansIdx; i++){
-            answer[i] = tempAnswer[i];
-        }
+        
+        Collections.sort(answer, (o1, o2) ->{
+            return o1[finalSortIdx] - o2[finalSortIdx];
+        });
+        
 
-        
-        final int finalSortIdx = sortIdx;
-        
-        Arrays.sort(answer, (o1, o2)->{
-                    return o1[finalSortIdx] - o2[finalSortIdx];
-                });
-        // for(int i=0; i<answer.length; i++){
-        //     for(int j=0; j<4; j++){
-        //         System.out.print(tempAnswer[i][j] + " ");
-        //     }
-        //     System.out.println();
-        // }
         return answer;
     }
 }
