@@ -2,29 +2,35 @@ import java.util.*;
 
 class Solution {
     public int solution(int x, int y, int n) {
-        int answer = 0;
+        int answer = -1;
         
-        int[] dp = new int[y+1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
-        dp[y] = 0;
+        Queue<Integer> q = new ArrayDeque<>();
+        Set<Integer> hs = new HashSet<>();
         
-        for(int i = y; i>= x; i--){
-            if(dp[i] == Integer.MAX_VALUE){
-                continue;
-            }
-            if(i-n>=x){
-                dp[i-n] = Math.min(dp[i] + 1, dp[i-n]);
-            }
-            if(i%2==0){
-                dp[i/2] = Math.min(dp[i] + 1, dp[i/2]);
-            }
-            if(i%3 == 0){
-                dp[i/3] = Math.min(dp[i] + 1, dp[i/3]);
-            }
+        q.offer(x);
+        int cnt = 0;
+        while(!q.isEmpty()){
+            int qsize = q.size();
             
+            for(int i=0; i<qsize; i++){
+                int current = q.poll();
+                if(current == y){
+                    return cnt;
+                }
+                if(current+n <= y && hs.add(current+n)){
+                    q.offer(current+n);
+                }
+                if(current*2 <= y && hs.add(current*2)){
+                    q.offer(current*2);
+                }
+                if(current*3 <= y && hs.add(current*3)){
+                    q.offer(current*3);
+                }
+            }
+            cnt++;
         }
         
         
-        return dp[x]==Integer.MAX_VALUE?-1:dp[x];
+        return answer;
     }
 }
