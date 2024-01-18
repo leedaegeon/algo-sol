@@ -8,18 +8,25 @@ class Solution {
         return answer;
     }
     
-    public void perm(int cnt, int tired, int[][] dungeons){
+    public boolean perm(int cnt, int tired, int[][] dungeons){
+        answer = Math.max(answer, cnt);            
         
+        if(cnt == dungeons.length){
+            return true;
+        }
         for(int i=0; i<dungeons.length; i++){
-        
+            
+            
             if(!visited[i] && tired >= dungeons[i][0]){
                 visited[i] = true;
-                perm(cnt+1, tired-dungeons[i][1], dungeons);
+                if(perm(cnt+1, tired-dungeons[i][1], dungeons)){
+                    return true;
+                }
                 visited[i] = false;
             }
             
         }
-        answer = Math.max(answer, cnt);            
 
+        return false;
     }
 }
