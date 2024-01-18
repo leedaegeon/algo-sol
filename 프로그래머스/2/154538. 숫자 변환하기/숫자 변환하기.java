@@ -2,40 +2,34 @@ import java.util.*;
 
 class Solution {
     public int solution(int x, int y, int n) {
-        int answer = -1;
+        int answer = 0;
         
-        Queue<Integer> q = new ArrayDeque<>();
-        boolean[] visited = new boolean[y+1];
+        int[] dp = new int[y+1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[x] = 0;
         
-        q.offer(x);
-        int cnt = 0;
-        while(!q.isEmpty()){
-            int qsize = q.size();
-            
-            for(int i=0; i<qsize; i++){
-                int current = q.poll();
-                // visited[current] = true;
-                // System.out.println(current + " " + cnt);
-                if(current == y){
-                    return cnt;
-                }
-                if(current+n <= y && !visited[current+n]){
-                    q.offer(current+n);
-                    visited[current+n] = true;
-                }
-                if(current*2 <= y && !visited[current*2]){
-                    q.offer(current*2);
-                    visited[current*2] = true;
-                }
-                if(current*3 <= y && !visited[current*3]){
-                    q.offer(current*3);
-                    visited[current*3] = true;
-                }
+        for(int i = x; i <= y; i++){
+            if(dp[i] == Integer.MAX_VALUE){
+                continue;
             }
-            cnt++;
+            if(i+n <= y){
+                dp[i+n] = Math.min(dp[i] + 1, dp[i+n]);
+            }
+            if(i*2 <= y){
+                dp[i*2] = Math.min(dp[i] + 1, dp[i*2]);
+            }
+            if(i*3 <= y){
+                dp[i*3] = Math.min(dp[i]+1, dp[i*3]);
+            }
         }
+        // for(int i=x; i<=y; i++){
+        //     if(dp[i] == Integer.MAX_VALUE){
+        //         continue;
+        //     }
+        //     System.out.println(dp[i]);
+        // }
         
         
-        return answer;
+        return dp[y]==Integer.MAX_VALUE?-1:dp[y];
     }
 }
