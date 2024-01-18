@@ -14,13 +14,8 @@ class Solution {
             if(spot <= targets[i][0]){
                 answer++;
                 spot = targets[i][1];
-                
                 // System.out.println(spot);
-                System.out.println(targets[i][0] +" " + targets[i][1]);
-            }else{
-                // spot = Math.min(spot, targets[i][1]);
-                // System.out.println(spot);
-                
+                // System.out.println(targets[i][0] +" " + targets[i][1]);
             }
         }
         
