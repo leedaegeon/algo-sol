@@ -10,7 +10,7 @@ class Solution {
         Queue<Integer> q2 = new ArrayDeque<>();
         long q2Val = 0l;
         
-        Set<Integer> hs = new HashSet<>();
+        Set<Long> hs = new HashSet<>();
         
         
         for(int i=0; i<queue1.length; i++){
@@ -36,7 +36,9 @@ class Solution {
                     q2.offer(temp);
                     q2Val += temp;
                     answer++;
-                    
+                    if(!hs.add(q1Val)){
+                        cnt++;
+                    }
                 }
             }
             else if(q1Val < q2Val){
@@ -47,13 +49,12 @@ class Solution {
                     q1.offer(temp);
                     q1Val += temp;
                     answer++;
+                    if(!hs.add(q1Val)){
+                        cnt++;
+                    }
                 }
             }
-            if(!hs.add(temp)){
-                cnt++;
-            }else{
-                cnt = 0;
-            }
+            
             if(cnt == q1.size()*2){
                 return -1;
             }
