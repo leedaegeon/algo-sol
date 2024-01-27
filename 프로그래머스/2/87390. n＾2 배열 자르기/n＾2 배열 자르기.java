@@ -4,7 +4,6 @@ class Solution {
         
         int[] dy = {0, 1, 1};
         int[] dx = {1, 1, 0};
-        Queue<Node> q = new ArrayDeque<>();
         
         List<Long> ls = new LinkedList<>();
         for(long i=left; i<=right; i++){
@@ -16,12 +15,5 @@ class Solution {
         }
         return answer;
     }
-    class Node{
-        int y;
-        int x;
-        Node(int y, int x){
-            this.y = y;
-            this.x = x;
-        }
-    }
+    
 }
