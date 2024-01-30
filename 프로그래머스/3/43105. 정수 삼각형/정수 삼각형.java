@@ -6,7 +6,6 @@ class Solution {
         int answer = 0;
         
         int n = triangle.length;
-        int[][] sum = new int[triangle.length+1][triangle.length];
         
         for(int i=1; i<n; i++){
             for(int j=0; j<triangle[i].length; j++){
