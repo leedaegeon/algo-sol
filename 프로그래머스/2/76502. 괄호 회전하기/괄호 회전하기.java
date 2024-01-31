@@ -7,7 +7,7 @@ class Solution {
 //         2. origin q를 남기고
 //         3. Deque에 넣고 스택으로 사용
 //         4. flag 배열 사용
-        
+//         *** addFirst, pollFirst써서 peek() 그대로 사용할 수 있는 환경 만들자 ***
         Queue<Character> q = new ArrayDeque<>();
         char[] start = {'[', '{', '('};
         char[] end = {']', '}', ')'};
@@ -21,31 +21,25 @@ class Solution {
             Queue<Character> q2 = new ArrayDeque<>(q);
             stack = new LinkedList<>();
             int size = q2.size();
+            
             for(int j=0; j< size; j++){
                 boolean flag = false;
-
                 char c = q2.poll();
-                // System.out.print(c + " ");
                 
                 if(stack.isEmpty()){
-                    stack.addLast(c);
+                    stack.addFirst(c);
                     continue;
                 }
-                // for(char c2: stack){
-                //     System.out.print(c2 + " ");
-                // }
-                // System.out.println(stack.peek() + " " + c);
+  
                 for(int k=0; k<3; k++){
-                    if(stack.peekLast() == start[k] && c == end[k]){
-                        char c2 = stack.pollLast();
-                        // System.out.println("poll "+c2 + " " + c);        
+                    if(stack.peek() == start[k] && c == end[k]){
+                        char c2 = stack.pollFirst();
                         flag = true;
                         break;
                     }
                 }
                 if(!flag){
-                    // System.out.println("add " + c + " ");
-                    stack.addLast(c);
+                    stack.addFirst(c);
                 }
 
             }
@@ -53,22 +47,11 @@ class Solution {
             if(stack.isEmpty()){
                 answer++;
             }            
-            // System.out.println(answer);
             q.offer(q.poll());
         }        
         return answer;
     }
-    public boolean check(char[] start, char[] end, char c){
-        for(int k=0; k<3; k++){
-            if(c == end[k] && stack.peek() == start[k]){
-                char c2 = stack.pollLast();
-                // System.out.print(c2 + " " + c);
-                return true;
-            }
-        }
-        
-        return false;
-    }
+    
     
     
 }
