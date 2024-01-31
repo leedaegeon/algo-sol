@@ -1,5 +1,4 @@
 import java.util.*;
-
 class Solution {
     public int solution(int n, int[][] wires) {
         int answer = n;
@@ -11,7 +10,7 @@ class Solution {
             adjTree.get(wires[i][0]).add(wires[i][1]);
             adjTree.get(wires[i][1]).add(wires[i][0]);
         }
-        
+
         // for(int i=1; i<adjTree.size(); i++){
         //     for(int j: adjTree.get(i)){
         //         System.out.print(j + " ");
@@ -22,7 +21,7 @@ class Solution {
             Queue<Integer> q = new ArrayDeque<>();
             boolean[] visited = new boolean[n+1];
             int cnt = 0;
-            
+
             q.offer(1);
             // System.out.print(1 + " ");
 
@@ -49,5 +48,4 @@ class Solution {
         }
         return answer;
     }
-    
 }
