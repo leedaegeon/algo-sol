@@ -17,7 +17,8 @@ class Solution {
         int idx = 0;
         while(!q.isEmpty()){
             int current = q.poll();
-            if(current != sorted[idx]){
+//             만약 우선순위가 128이상일 경우 ==이 아닌 equals를 사용해야함
+            if(!sorted[idx].equals(current)){
                 q.offer(current);                
                 if(location == 0){
                 location = q.size()-1;
