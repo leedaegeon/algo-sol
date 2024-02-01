@@ -11,7 +11,9 @@ class Solution {
             sorted[i] = p[i];    
             q.offer(p[i]);
         }
-        Arrays.sort(sorted, Collections.reverseOrder());
+        Arrays.sort(sorted, (o1, o2) ->{
+            return o2-o1;
+        });
         int idx = 0;
         while(!q.isEmpty()){
             int current = q.poll();
