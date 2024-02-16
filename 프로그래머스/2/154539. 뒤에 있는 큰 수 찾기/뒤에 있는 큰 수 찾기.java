@@ -6,23 +6,14 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         
         for(int i=numbers.length-1; i>=0; i--){
-            if(stack.isEmpty()){
-                stack.addFirst(numbers[i]);
-                continue;
+            
+            while(!stack.isEmpty() && stack.peekFirst() <= numbers[i]){
+                stack.removeFirst();
             }
-            // for(Integer k: stack){
-            //     System.out.print(k + " ");
-            // }
-            // System.out.println("\n " + numbers[i]);
-            // System.out.println("-------------------------");
-            while(!stack.isEmpty()){
-                if(stack.peek() > numbers[i]){
-                    answer[i] = stack.peekFirst();
-                    break;
-                }else{
-                    stack.removeFirst();
-                }
+            if(!stack.isEmpty()){
+                answer[i] = stack.peekFirst();
             }
+            
             stack.addFirst(numbers[i]);
             
         }        
