@@ -9,7 +9,7 @@ class Solution {
                 int val = Integer.parseInt(op[1]);
                 tmap.put(val, tmap.getOrDefault(val, 0) + 1);
             }else if(op[1].equals("-1")){
-                if(tmap.size() > 0){
+                if(!tmap.isEmpty()){
                     int minVal = tmap.firstKey();
                     tmap.put(minVal, tmap.get(minVal) - 1);
                     if(tmap.get(minVal) == 0){
@@ -18,7 +18,7 @@ class Solution {
                 }
             }else{
                 
-                if(tmap.size() > 0){
+                if(!tmap.isEmpty()){
                     int maxVal = tmap.lastKey();
                     tmap.put(maxVal, tmap.get(maxVal) - 1);
                     if(tmap.get(maxVal) == 0){
@@ -28,7 +28,7 @@ class Solution {
             }
         }
         answer = new int[2];
-        if(tmap.size() > 0){
+        if(!tmap.isEmpty()){
             answer[0] = tmap.lastKey();
             answer[1] = tmap.firstKey();
         }
