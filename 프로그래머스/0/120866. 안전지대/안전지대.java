@@ -7,44 +7,36 @@ class Solution {
         int n = board.length;
         for(int i=0; i<n*n; i++){
             if(board[i/n][i%n] == 1){
-                board = bfs(i/n, i%n, board, n);
+                board = dfs(i/n, i%n, board, n);
             }
         }
-        
-        
-        
+        // for(int i=0; i<board.length; i++){
+        //     for(int j=0; j<n; j++){
+        //         System.out.print(board[i][j] + " ");
+        //     }
+        //     System.out.println();
+        // }  
         return (n*n)-answer;
     }
-    public int[][] bfs(int starty, int startx, int[][] board, int n){
-        Queue<Point> q = new ArrayDeque<>();
-        q.offer(new Point(starty, startx));
-        
-        while(!q.isEmpty()){
-            Point now = q.poll();
-            int y = now.y;
-            int x = now.x;
-            if(board[y][x] == 2 || board[y][x] == 3){
-                continue;
-            }
-            board[y][x] = 3;
-            answer++;
-
-            for(int i=0; i<8; i++){
-                int nexty = y+di[i];
-                int nextx = x+dj[i];
-                if(nexty < 0 || nexty >= n || nextx < 0 || nextx >= n){
-                    continue;
-                }
-                if(board[nexty][nextx] == 1){
-                    q.offer(new Point(nexty,nextx));
-                }else if(board[nexty][nextx] == 0){
-                    answer++;
-                    board[nexty][nextx] = 2;
-                }
-
-            }          
-            
+    public int[][] dfs(int nexty, int nextx, int[][] board, int n){
+        if(nexty < 0 || nexty >= n || nextx < 0 || nextx >= n){
+            return board;
         }
+        if(board[nexty][nextx] == 2){
+            return board;
+        }
+        answer++;
+//         8방 탐색할 권한은 폭탄좌표에만 부여
+        if(board[nexty][nextx] == 1){
+            board[nexty][nextx] = 2;
+            for(int i=0; i<8; i++){
+                board = dfs(nexty + di[i], nextx + dj[i], board, n);
+            }
+        }else if(board[nexty][nextx] == 0){
+            board[nexty][nextx] = 2;
+        }
+        
+        
         return board;
     }
     class Point{
