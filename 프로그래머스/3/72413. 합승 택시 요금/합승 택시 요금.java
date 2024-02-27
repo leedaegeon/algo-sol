@@ -12,6 +12,12 @@ class Solution {
         List<Node> als = new LinkedList<>();
         List<Node> bls = new LinkedList<>();
         
+        // for(int[] c: adjMat){
+        //     for(int d: c){
+        //         System.out.print(d + " ");
+        //     }
+        //     System.out.println();
+        // }
         int[] dist = new int[n+1];
         Arrays.fill(dist, 987654321);
         PriorityQueue<Node> pq = new PriorityQueue<>();
@@ -26,7 +32,9 @@ class Solution {
                continue; 
             }
             visited[now.num] = true;
-                        
+            
+            // System.out.println("여기까지는 최소비용으로 도착: " + now.num + " " + now.weight);
+            
             for(int i=1; i<adjMat[now.num].length; i++){
                 if(adjMat[now.num][i] != 0){
                     if(dist[i] > now.weight + adjMat[now.num][i]){
@@ -38,7 +46,9 @@ class Solution {
         }
         int min = Integer.MAX_VALUE;
         
-        for(int i=1; i<n+1; i++){             
+        for(int i=1; i<n+1; i++){
+            // System.out.println("현재 경유 노드: " + i);
+             
             
             pq = new PriorityQueue<>();
             
@@ -66,8 +76,17 @@ class Solution {
                 }
             }
             min = Math.min(min, subDist[a] + subDist[b] - dist[i]);
+            // for(int k=1; k<dist.length; k++){
+            //     System.out.print(subDist[k] + " ");
+            // }
+            // System.out.println();
+            
         }
         
+        // for(int i=1; i<dist.length; i++){
+        //     System.out.print(dist[i] + " ");
+        // }
+        // System.out.println();
         answer = min;
         return answer;
     }
