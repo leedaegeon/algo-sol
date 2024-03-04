@@ -4,8 +4,6 @@ class Solution {
         int answer = 0;
         PriorityQueue<Process> pq = new PriorityQueue<>();
         
-        
-
         Arrays.sort(jobs, (o1, o2) -> {
             if(o1[0] == o2[0]){
                 return o1[1] - o2[1];
@@ -14,8 +12,6 @@ class Solution {
             }
         });
     
-        boolean[] visited = new boolean[jobs.length];
-
         int t = 0;
         int time = 0;
         int idx = 0;
@@ -53,9 +49,11 @@ class Solution {
             this.duration = duration;
         }
         public int compareTo(Process o2){
-            
-            return this.duration - o2.duration;
-            
+            if(this.duration == o2.duration){
+                return this.start - o2.start;
+            }else{
+                return this.duration - o2.duration;
+            }
         }
     }
 }
