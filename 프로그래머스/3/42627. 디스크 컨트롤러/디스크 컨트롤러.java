@@ -30,7 +30,7 @@ class Solution {
                 time += t - p.start + p.duration;
                 t += p.duration;
             }else{
-                t++;
+                t = jobs[idx][0];
             }
             // System.out.println(t);
         
