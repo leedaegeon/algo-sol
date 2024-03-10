@@ -75,7 +75,6 @@ class Solution {
                             minM = n.m;
                         }
                         
-                        
                         totalTime += (maxT - minT)*60 + maxM - minM;
                         
                     }
