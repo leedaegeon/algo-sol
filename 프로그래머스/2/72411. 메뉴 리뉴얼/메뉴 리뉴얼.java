@@ -36,13 +36,8 @@ class Solution {
             }
             String str = sb.toString();
             map.put(str, map.getOrDefault(str, 0)+1);
-            if(max.get(str.length()) == null){
-                max.put(str.length(), map.get(str));
-            }else{
-                if(max.get(str.length()) < map.get(str)){
-                    max.put(str.length(), map.get(str));
-                }
-            }
+            
+            max.put(str.length(), Math.max(max.getOrDefault(str.length(), 0), map.get(str)));
             return;
         }
         if(idx == cards.size()){
