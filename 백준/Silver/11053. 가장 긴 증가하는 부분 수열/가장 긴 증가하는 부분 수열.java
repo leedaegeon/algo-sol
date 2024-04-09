@@ -9,22 +9,31 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[] nums = new int[n];
-        int[] LIS = new int[n];
+        int[] tails = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=0; i<n; i++){
             nums[i] = Integer.parseInt(st.nextToken());
         }
-        LIS[0] = 1;
-        int answer = 1;
-        for(int i=1; i<n; i++){
-            for (int j = 0; j < i; j++) {
-                if(nums[i] > nums[j]) {
-                    LIS[i] = Math.max(LIS[j], LIS[i]);
-                }
+        int maxLen = 0;
+        for (int i = 0; i < n; i++) {
+            int idx = binSearch(tails, maxLen, nums[i]);
+            tails[idx] = nums[i];
+            if (idx == maxLen) {
+                maxLen++;
             }
-            LIS[i]+=1;
-            answer = Math.max(answer, LIS[i]);
         }
-        System.out.println(answer);
+        System.out.println(maxLen);
+    }
+    public static int binSearch(int[] tails, int end, int key){
+        int start = 0;
+        while(start < end){
+            int mid = (start + end) / 2;
+            if(tails[mid] < key){
+                start = mid + 1;
+            } else {
+                end = mid;
+            }
+        }
+        return end;
     }
 }
