@@ -18,33 +18,18 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         for(String str: inputList){
             char[][] field = new char[3][3];
-
-            int cnt1 = 0;
-            int cnt2 = 0;
-
             for (int i = 0; i < 9; i++) {
                 field[i / 3][i % 3] = str.charAt(i);
-                if(field[i/3][i%3] == 'O'){
-                    cnt1++;
-                }else if(field[i/3][i%3] == 'X'){
-                    cnt2++;
-                }
-//                중간에 승자체크를 해주면서 승자가 나왔음에도 게임이 진행되는 것을 확인해야함
             }
-
             if (!isValid(field)) {
-//                invalid
                 sb.append("invalid");
-
             }else{
                 sb.append("valid");
             }
-            sb.append(" ");
+            sb.append("\n");
         }
-        String[] strs = sb.toString().trim().split(" ");
-        for(String str: strs){
-            System.out.println(str);
-        }
+        sb.delete(sb.length() - 1, sb.length());
+        System.out.println(sb);
     }
     public static boolean isValid(char[][] field){
         boolean white = false;
@@ -52,22 +37,22 @@ public class Main {
         int totalWhiteCnt = 0;
         int totalBlackCnt = 0;
         for (int i = 0; i < 9; i++) {
-
-            if (field[i/3][i%3] == 'O') {
+            int nowi = i/3;
+            int nowj = i%3;
+            if (field[nowi][nowj] == 'O') {
                 totalWhiteCnt++;
 
-            } else if (field[i/3][i%3] == 'X') {
+            } else if (field[nowi][nowj] == 'X') {
                 totalBlackCnt++;
             }
             for (int dir = 0; dir < 8; dir++) {
-                int nexti = i / 3;
-                int nextj = i % 3;
+                int nexti = nowi;
+                int nextj = nowj;
                 int whiteCnt = 0;
                 int blackCnt = 0;
-                if (field[i/3][i%3] == 'O') {
+                if (field[nexti][nextj] == 'O') {
                     whiteCnt++;
-
-                } else if (field[i/3][i%3] == 'X') {
+                } else if (field[nexti][nextj] == 'X') {
                     blackCnt++;
                 }
                 for (int m = 0; m < 2; m++) {
@@ -91,16 +76,20 @@ public class Main {
             }
         }
 //        System.out.println(white + " " + black + " : " + totalWhiteCnt + " " + totalBlackCnt);
+        // 누가 승자인지에 따라 흰돌 검은 돌 개수를 체크해서 서로 번갈아가면서 돌을 두었는지 확인해야함
         if(white&!black){
+//            O가 이기려면 두 돌 개수가 같은채로 끝나야 함
             if(totalWhiteCnt == totalBlackCnt){
                 return true;
             }
-        }else if(!white&black){
-            if(totalWhiteCnt + 1 == totalBlackCnt){
+        } else if (!white & black) {
+//            X가 이기려면 x보다 한개 더 많이 둔 상태에서 판이 끝나야함
+            if (totalWhiteCnt + 1 == totalBlackCnt) {
                 return true;
             }
-        }else if(!white&&!black){
-            if(totalWhiteCnt + totalBlackCnt == 9 && totalWhiteCnt + 1 == totalBlackCnt){
+        } else if (!white && !black) {
+//            승자가 없는 경우는 판을 가득 채우고 X가 O보다 한개 더 많아야 제대로 끝난 판임
+            if (totalWhiteCnt + totalBlackCnt == 9 && totalWhiteCnt + 1 == totalBlackCnt) {
                 return true;
             }
         }
