@@ -2,8 +2,8 @@ import java.util.*;
 class Solution {
     public int solution(String str1, String str2) {
         int answer = 0;
-        List<String> ls1 = new ArrayList<>();
-        List<String> ls2 = new ArrayList<>();
+        List<String> ls1 = new LinkedList<>();
+        List<String> ls2 = new LinkedList<>();
 
         for(int i=0; i<str1.length()-1; i++){
             String str = str1.substring(i,i+2).replaceAll("[^A-Za-z]", "").toLowerCase();
@@ -23,8 +23,8 @@ class Solution {
             return 65536;
         }
         
-        List<String> inter = new ArrayList<>();
-        List<String> union = new ArrayList<>();
+        List<String> inter = new LinkedList<>();
+        List<String> union = new LinkedList<>();
         
         for(int i=0; i<ls1.size(); i++){
             if(ls2.remove(ls1.get(i))){
