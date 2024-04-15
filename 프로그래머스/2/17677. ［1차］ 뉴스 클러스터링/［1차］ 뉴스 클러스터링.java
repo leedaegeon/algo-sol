@@ -2,8 +2,8 @@ import java.util.*;
 class Solution {
     public int solution(String str1, String str2) {
         int answer = 0;
-        List<String> ls1 = new LinkedList<>();
-        List<String> ls2 = new LinkedList<>();
+        List<String> ls1 = new ArrayList<>();
+        List<String> ls2 = new ArrayList<>();
 
         for(int i=0; i<str1.length()-1; i++){
             String str = str1.substring(i,i+2).replaceAll("[^A-Za-z]", "").toLowerCase();
