@@ -56,11 +56,10 @@ class Solution {
             if(idx!=-1){
                 inter.add(ls2.get(idx));
                 ls2.remove(ls2.get(idx));
-                union.add(ls1.get(i));
                 
-            }else{
-                union.add(ls1.get(i));
             }
+            union.add(ls1.get(i));
+            
         }
         for(int i=0; i<ls2.size(); i++){
             union.add(ls2.get(i));
