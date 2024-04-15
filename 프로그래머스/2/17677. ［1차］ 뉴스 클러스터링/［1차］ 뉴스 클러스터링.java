@@ -2,38 +2,19 @@ import java.util.*;
 class Solution {
     public int solution(String str1, String str2) {
         int answer = 0;
-        String repStr1 = str1.toLowerCase();
-        String repStr2 = str2.toLowerCase();
-        
         List<String> ls1 = new ArrayList<>();
         List<String> ls2 = new ArrayList<>();
-        Map<String, Integer> map1 = new HashMap<>();
-        Map<String, Integer> map2 = new HashMap<>();
-        
-        for(int i=0; i<repStr1.length()-1; i++){
-            StringBuilder sb = new StringBuilder();
-            String newStr1 = repStr1.charAt(i)+"";
-            String newStr2 = repStr1.charAt(i+1)+"";
-            newStr1 = newStr1.replaceAll("[^A-Za-z]", "");
-            newStr2 = newStr2.replaceAll("[^A-Za-z]", "");
-            
-            sb.append(newStr1);
-            sb.append(newStr2);
-            if(sb.length() ==2){
-                ls1.add(sb.toString());
+
+        for(int i=0; i<str1.length()-1; i++){
+            String str = str1.substring(i,i+2).replaceAll("[^A-Za-z]", "").toLowerCase();
+            if(str.length() ==2){
+                ls1.add(str);
             }
         }
-        for(int i=0; i<repStr2.length()-1; i++){
-            StringBuilder sb = new StringBuilder();
-            String newStr1 = repStr2.charAt(i)+"";
-            String newStr2 = repStr2.charAt(i+1)+"";
-            newStr1 = newStr1.replaceAll("[^A-Za-z]", "");
-            newStr2 = newStr2.replaceAll("[^A-Za-z]", "");
-            
-            sb.append(newStr1);
-            sb.append(newStr2);
-            if(sb.length() ==2){
-                ls2.add(sb.toString());
+        for(int i=0; i<str2.length()-1; i++){
+            String str = str2.substring(i, i+2).replaceAll("[^A-Za-z]", "").toLowerCase();
+            if(str.length() ==2){
+                ls2.add(str);
             }
         }
         // System.out.print(ls1);
@@ -46,17 +27,8 @@ class Solution {
         List<String> union = new ArrayList<>();
         
         for(int i=0; i<ls1.size(); i++){
-            int idx = -1;
-            for(int j=0; j<ls2.size(); j++){
-                if(ls1.get(i).equals(ls2.get(j))){
-                    idx = j;
-                    break;
-                }
-            }
-            if(idx!=-1){
-                inter.add(ls2.get(idx));
-                ls2.remove(ls2.get(idx));
-                
+            if(ls2.remove(ls1.get(i))){
+                inter.add(ls1.get(i));
             }
             union.add(ls1.get(i));
             
