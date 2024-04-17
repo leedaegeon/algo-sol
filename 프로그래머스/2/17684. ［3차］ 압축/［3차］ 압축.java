@@ -12,29 +12,22 @@ class Solution {
         //     System.out.println(key + " " + map.get(key));
         // }
         List<Integer> ans = new LinkedList<>();
-        int lastIdx = 27;
-        int lastI = 0;
+        int lastIdx = 26;
         for(int i=0; i<msg.length();){
-            int k=0;
-            System.out.println(i);
+            int addIdx=0;
             for(int j=i+1; j<=msg.length(); j++){
-                String s = msg.substring(i,j);
-                    // System.out.println(s);
-                
+                String s = msg.substring(i,j);                
                 if(map.get(s) == null){
                     ans.add(map.get(msg.substring(i,j-1)));
-                    map.put(s, lastIdx++);
+                    map.put(s, ++lastIdx);
                     break;
                 }else if(j==msg.length()){
                     ans.add(map.get(s));
                 }
-                k++;
+                addIdx++;
             }
-            i += k;
-
-            
+            i += addIdx;
         }
-        // System.out.println(ans);
         return ans;
     }
 }
