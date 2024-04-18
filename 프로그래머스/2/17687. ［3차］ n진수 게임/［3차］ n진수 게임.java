@@ -6,7 +6,7 @@ class Solution {
         if(n>=10){
             char c = 'A';
             for(int i=10; i<16; i++){
-                map.put(i, c+"");
+                map.put(i, Character.toString(c));
                 c++;
             }
         }
