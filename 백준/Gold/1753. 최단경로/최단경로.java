@@ -54,13 +54,18 @@ public class Main {
                 }
             }
         }
+        StringBuilder sb = new StringBuilder();
         for(int d: dist){
             if(d == 987654321){
-                System.out.println("INF");
+//                System.out.println("INF");
+                sb.append("INF\n");
             }else {
-                System.out.println(d);
+//                System.out.println(d);
+                sb.append(d+"\n");
             }
         }
+        sb.delete(sb.length() - 1, sb.length());
+        System.out.println(sb.toString());
     }
     static class Node implements Comparable<Node>{
         int number;
