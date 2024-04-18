@@ -1,12 +1,13 @@
 import java.util.*;
 class Solution {
     static char[] cards = {'A', 'E', 'I', 'O', 'U'};
-    static int max;
+
     static int answer = 0;
     static List<String> ls = new LinkedList<>();
     static Set<String> set = new HashSet<>();
+    static String word2;
     public int solution(String word) {
-        max = word.length();
+        word2 = word;
         
         repPerm(0, new StringBuilder());
         // for(int i=0; i<100 && i<ls.size(); i++){
@@ -24,6 +25,9 @@ class Solution {
         return answer;
     }
     public void repPerm(int cnt, StringBuilder sb){
+        if(sb.toString().equals(word2)){
+            return;
+        }
         if(cnt == 5){
             return;
         }
