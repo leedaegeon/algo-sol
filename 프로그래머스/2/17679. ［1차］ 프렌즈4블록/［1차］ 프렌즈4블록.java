@@ -101,26 +101,20 @@ class Solution {
     }
     public String[][] mapArrange(String[][] map){
         String[][] newMap = new String[map.length][map[0].length];
-        for(int i=0; i<newMap.length; i++){
+        for(int i=0; i<map.length; i++){
             Arrays.fill(newMap[i], "*");
         }
-        for(int i=map.length-1; i>=0; i--){
-            for(int j=0; j<map[0].length; j++){
-                if(visited[i][j]){
-                    int blankRow = i;
-                    for(int k=i-1; k>=0; k--){
-                        if(!visited[k][j] ){
-                            blankRow = k;
-                            break;
-                        }
-                    }
-                    newMap[i][j] = map[blankRow][j];
-                    newMap[blankRow][j] = "*";
-                    visited[i][j] = false;
-                    visited[blankRow][j] = true;
-                }else{
-                    newMap[i][j] = map[i][j];
+        for(int j=0; j<map[0].length; j++){
+            Deque<String> dq = new ArrayDeque<>();
+            
+            for(int i=0; i<map.length; i++){
+                if(!visited[i][j]){
+                    dq.addFirst(map[i][j]);
                 }
+            }
+            int row = map.length-1;
+            while(!dq.isEmpty()){
+                newMap[row--][j] = dq.removeFirst();
             }
         }
         return newMap;
