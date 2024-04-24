@@ -8,14 +8,10 @@ class Solution {
         
         for(int i=0; i<files.length; i++){
             int headLen = findHead(files[i]);
-            formatFile[i][0] = files[i].substring(0,headLen);
             int numberLen = findNum(files[i], headLen);
-            formatFile[i][1] = files[i].substring(headLen, numberLen);
-            // System.out.println(headLen);
-            // System.out.println(numberLen);
+            formatFile[i][0] = files[i].substring(0,headLen);
+            formatFile[i][1] = files[i].substring(headLen, numberLen);            
             formatFile[i][2] = files[i].substring(numberLen, files[i].length());
-            // System.out.println(formatFile[i][0] + " " + formatFile[i][1] + " " + formatFile[i][2]);
-            
         }
         Arrays.sort(formatFile, (o1, o2) -> {
             String str1 = o1[0].toLowerCase();
@@ -38,15 +34,22 @@ class Solution {
     }
     public int findHead(String file){
         for(int i=0; i<file.length(); i++){
-            if(file.charAt(i)-'0' >= 0 && file.charAt(i)-'0' <= 9){
+            // if(file.charAt(i)-'0' >= 0 && file.charAt(i)-'0' <= 9){
+            //     return i;
+            // }
+            if(Character.toString(file.charAt(i)).replaceAll("[0-9]","").equals("")){
                 return i;
             }
         }
         return file.length();
     }
+    
     public int findNum(String file, int start){
         for(int i=start; i<file.length(); i++){
-            if(file.charAt(i) - '0' < 0 || file.charAt(i) - '0' > 9){
+            // if(file.charAt(i) - '0' < 0 || file.charAt(i) - '0' > 9){
+            //     return i;
+            // }
+            if(!Character.toString(file.charAt(i)).replaceAll("[0-9]","").equals("")){
                 return i;
             }
         }
