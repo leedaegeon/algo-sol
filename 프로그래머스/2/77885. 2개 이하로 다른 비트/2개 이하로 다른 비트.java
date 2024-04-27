@@ -6,11 +6,11 @@ class Solution {
             while(true){
                 long findZero = numbers[i] | k;
                 if(findZero > numbers[i]){
-                    k = k>>1;
+                    k >>= 1;
                     answer[i] = findZero^k;
                     break;
                 }else{
-                    k = k<<1;
+                    k <<= 1;
                 }
             }
         }
