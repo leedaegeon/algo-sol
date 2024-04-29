@@ -10,12 +10,14 @@ class Solution {
         Arrays.sort(sorted, (o1, o2) ->{
             while(true){
                 if(o1.length() == o2.length()){
-                    return o2.compareTo(o1);
+                    return Integer.parseInt(o2) - Integer.parseInt(o1);
                 }
                 if(o1.length() < o2.length()){
                     for(int i=0; i<o1.length(); i++){
                         if(o1.charAt(i) != o2.charAt(i)){
-                            return o2.substring(i, i+1).compareTo(o1.substring(i, i+1));
+                            
+                            // return o2.substring(i, i+1).compareTo(o1.substring(i, i+1));
+                            return Integer.parseInt(o2.charAt(i)+"") - Integer.parseInt(o1.charAt(i)+"");
                         }
                     }
                     o2 = o2.substring(o1.length());
@@ -23,7 +25,8 @@ class Solution {
                 if(o1.length() > o2.length()){
                     for(int i=0; i<o2.length(); i++){
                         if(o1.charAt(i) != o2.charAt(i)){
-                            return o2.substring(i, i+1).compareTo(o1.substring(i, i+1));
+                            // return o2.substring(i, i+1).compareTo(o1.substring(i, i+1));
+                            return Integer.parseInt(o2.charAt(i)+"") - Integer.parseInt(o1.charAt(i)+"");
                         }
                     }
                     o1 = o1.substring(o2.length());
