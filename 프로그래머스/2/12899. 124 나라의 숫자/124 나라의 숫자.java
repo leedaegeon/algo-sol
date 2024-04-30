@@ -8,12 +8,13 @@ class Solution {
             int k = n%3;
             if(k==0){
                 sb.append(4);
+                n--;
             }else if(k==1){
                 sb.append(1);
             }else if(k==2){
                 sb.append(2);
             }
-            n--;
+            
             n/=3;
             
         }
