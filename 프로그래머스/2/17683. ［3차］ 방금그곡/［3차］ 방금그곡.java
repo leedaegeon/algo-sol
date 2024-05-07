@@ -18,7 +18,7 @@ class Solution {
             int h2 = Integer.parseInt(endTime[0])*60;
             min = Integer.parseInt(endTime[1]);
             int end = h2 + min;
-            
+//             00:00을 넘겨서까지 재생되는 일은 없다.
             if(h2<h){
                 end = 1439;    
             }
@@ -30,9 +30,12 @@ class Solution {
             int sCnt = 0;
             StringBuilder sb = new StringBuilder();
             
+//             여기서 좀 고생했음
+//             다음부터는 파싱해야 하는 문자열 길이가 두 가지인 경우 다른 알파벳으로 매핑해서 하자!
             for(int i=0; i - sCnt < end - start; i++){
-                
+//                 재생시간으로 인한 반복
                 sb.append(tones.charAt(i%totalTime));
+
                 if(tones.charAt((i+1)%totalTime) != '#'){
                     sb.append(" ");
                 }else{
@@ -42,9 +45,10 @@ class Solution {
                 }
             }
             
-            ls.add(new Music(start, end, title, sb.toString().split(" "), idx));
+            ls.add(new Music(start, end, title, sb.toString().split(" ")));
             idx++;
         }
+//         다 찾고나서 정렬하지 말고 정렬된 상태에서 가장 먼저 찾은 노래가 정답일 수 있도록
         Collections.sort(ls);
         // System.out.println(ls);
         StringBuilder sb = new StringBuilder();
@@ -56,16 +60,21 @@ class Solution {
             }
         }
         String[] mArr = sb.toString().split(" ");
-        // System.out.println(Arrays.toString(mArr));
         for(Music music: ls){
+
             for(int left=0; left<music.tone.length; left++){
+//                 첫 음이 같으면
                 if(mArr[0].equals(music.tone[left])){
                     int i = 1;
-                    // System.out.print(left + " ");
+                    int next = -1;
+//                     다음 음 체크
                     for(int right = left+1; right < music.tone.length && i < mArr.length; right++){
-                        
+//                         다음음 체크중에 첫 음이랑 같은 경우가 있으면 다음 탐색할 지점으로 저장
+                        if(next == -1 && music.tone[right].equals(mArr[0])){
+                            next = right;
+                        }                    
+//                         다음 탐색 지점이 같은 음이면 그 다음 음으로 넘어감
                         if(music.tone[right].equals(mArr[i])){
-                            // System.out.print(right + " ");
                             i++;
                             
                         }else{
@@ -73,15 +82,17 @@ class Solution {
                         }
                         
                     }
+//                     탐색 지점이 내가 찾고자 하는 멜로디의 마지막인경우 리턴
                     if(i == mArr.length){
                         answer = music.title;
                         return answer;
                     }
-                    System.out.println(": " + i);
-                   
+//                     만약 다음 탐색 지점을 미리 찾았다면 거기로 점프
+                   if(next!=-1){
+                       i = next-1;
+                   }
                 }
             }
-            // System.out.println("===================");
         }
         answer = "(None)";
         return answer;
@@ -91,22 +102,17 @@ class Solution {
         int end;
         String title;
         String[] tone;
-        int idx;
-        Music(int start, int end, String title, String[] tone, int idx){
+        Music(int start, int end, String title, String[] tone){
             this.start = start;
             this.end = end;
             this.title = title;
             this.tone = tone;
-            this.idx = idx;
         }
+
         public int compareTo(Music m){
             int dur1 = this.end - this.start;
             int dur2 = m.end - m.start;
-            if(dur1 == dur2){
-                return this.idx - m.idx;
-            }else{
-                return dur2 - dur1;
-            }
+            return dur2 - dur1;
         }
         public String toString(){
             return start + " " + end + " " + title + " " + Arrays.toString(tone) +"| 전체 플레이 시간 " + (end - start) + "분\n";
