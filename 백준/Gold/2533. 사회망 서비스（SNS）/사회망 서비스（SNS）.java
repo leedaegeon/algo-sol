@@ -38,15 +38,19 @@ public class Main {
     }
 
     public static void getChildDp(int cur, int parent) {
-//        System.out.println(cur);
+//        System.out.println(cur + " " + parent);
         dp[cur][0] = 0;
         dp[cur][1] = 1;
         for (int child : adjList.get(cur)) {
+//            현재노드 cur에서 child를 방문하는데 거기에 parent가 있는경우는 제외 -> parent에서 cur로 온거기 때문에 cur에서 parent(parent==child일 때)로 다시 가는건 중복임
             if(parent != child){
                 getChildDp(child, cur);
                 dp[cur][0] += dp[child][1];
                 dp[cur][1] += Math.min(dp[child][0], dp[child][1]);
             }
+//            else{
+//                System.out.println(cur + " " + parent + " " + child);
+//            }
         }
 
     }
