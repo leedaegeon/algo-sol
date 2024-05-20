@@ -1,6 +1,5 @@
 import java.util.*;
 class Solution {
-    static boolean[] visited = new boolean[6];
     static long[] memo;
     static List<Integer> answer = new LinkedList<>();
     public List<Integer> solution(int n, long k) {
