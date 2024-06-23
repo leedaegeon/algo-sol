@@ -10,20 +10,14 @@ class Solution {
                 p+=10-i;
             }
         }
-        if(p==0){
-            int[] a = {-1};
-            return a;
-        }
+        
         combWithRep(0, 0, n, new int[info.length], info);
-        // System.out.println(p + " " + r);
         if(r <= p || r<=0){
             int[] a = {-1};
             return a;
         }
         Collections.sort(ans);
-        // for(Node a: ans){
-        //     System.out.println(a);
-        // }
+        
         answer = ans.get(0).ls;
         return answer;
     }
