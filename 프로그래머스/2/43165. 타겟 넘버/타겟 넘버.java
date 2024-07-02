@@ -1,18 +1,22 @@
 class Solution {
-    static int answer;
-    public int solution(int[] numbers, int target) {
 
-        comb(0, target, numbers);
+    public int solution(int[] numbers, int target) {
+        int answer = 0;
+        answer = comb(0, target, numbers);
         return answer;
     }
-    public void comb(int idx, int target, int[] numbers){
+    public int comb(int idx, int target, int[] numbers){
         if(idx == numbers.length){
             if(target == 0){
-                answer++;
+                return 1; 
+
+            }else{
+                return 0;
             }
-            return;
         }
-        comb(idx+1, target+numbers[idx], numbers);
-        comb(idx+1, target-numbers[idx], numbers);
+        
+        int a = comb(idx+1, target+numbers[idx], numbers);
+        int b = comb(idx+1, target-numbers[idx], numbers);
+        return a+b;
     }
 }
