@@ -1,25 +1,18 @@
 class Solution {
-    
-    static int answer = 0;
-    
+    static int answer;
     public int solution(int[] numbers, int target) {
-        
-        comb(0, 0, target, numbers);
+
+        comb(0, target, numbers);
         return answer;
     }
-    public void comb(int idx, int sum, int target, int[] numbers){
-        
-        if(sum == target && idx == numbers.length){
-            answer++;
-            return;
-        }
-        
+    public void comb(int idx, int target, int[] numbers){
         if(idx == numbers.length){
+            if(target == 0){
+                answer++;
+            }
             return;
         }
-        comb(idx+1, sum + numbers[idx], target, numbers);
-        comb(idx+1, sum - numbers[idx], target, numbers);
-        
-        
+        comb(idx+1, target+numbers[idx], numbers);
+        comb(idx+1, target-numbers[idx], numbers);
     }
 }
