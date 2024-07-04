@@ -14,43 +14,47 @@ public class Main {
             int n;
             int k;
             boolean flag = false;
+
             String[] nk = br.readLine().split("\\s+");
             n = Integer.parseInt(nk[0]);
             k = Integer.parseInt(nk[1]);
             String[] stockStr = br.readLine().split("\\s+");
+            System.out.println("Case #" + m );
+            m++;
             int[] stockArr = new int[n];
             int iter=0;
             for(String s: stockStr){
                 stockArr[iter++] = Integer.parseInt(s);
             }
-//            System.out.println(Arrays.toString(stockArr));
-            System.out.println("Case #" + m );
-            m++;
-            int[] dp = new int[n];
-            dp[0] = 1;
+            int[] tails = new int[stockArr.length];
             int maxLen = 0;
-            for(int i=1; i<n; i++){
-                for(int j=0; j<i; j++){
-                    if(stockArr[i] > stockArr[j]){
-                        dp[i] = Math.max(dp[i], dp[j]);
-                    }
-                }
-                dp[i] += 1;
-                maxLen = Math.max(maxLen, dp[i]);
-                
-            }
-            for(int i: dp) {
-                if (i == k) {
-                    System.out.println(1);
-                    flag = true;
-                    break;
+            for(int i=0; i<stockArr.length; i++){
+                int idx = binSearch(tails, maxLen, stockArr[i]);
+                tails[idx] = stockArr[i];
+                if(idx == maxLen){
+                    maxLen++;
                 }
             }
-            if(!flag){
+            if(maxLen>=k){
+                System.out.println(1);
+            }else{
                 System.out.println(0);
             }
-//            System.out.println(Arrays.toString(dp));
-
         }
+    }
+    public static int binSearch(int[] tails, int maxLen, int key){
+        int start = 0;
+        int end = maxLen;
+        while(start < end){
+
+            int mid = start + (end-start)/2;
+//            key가 tails[mid]보다 커야 그 길이의 마지막이 될 수 있음
+            if(tails[mid] < key){
+                start = mid+1;
+            }else {
+                end = mid;
+            }
+        }
+        return end;
     }
 }
