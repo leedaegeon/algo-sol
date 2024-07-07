@@ -36,14 +36,7 @@ public class Main {
                 if(field[nexty][nextx] == 1 && now.cnt>0 && !visited[nexty][nextx][now.cnt-1]){
                     q.offer(new Node(nexty, nextx, now.cnt-1, now.len+1));
                     visited[nexty][nextx][now.cnt-1] = true;
-
-
-                }else if(field[nexty][nextx] == 0 && now.cnt>0 && !visited[nexty][nextx][now.cnt]){
-                    q.offer(new Node(nexty, nextx, now.cnt, now.len+1));
-                    visited[nexty][nextx][now.cnt] = true;
-
-
-                }else if(field[nexty][nextx] == 0 && now.cnt==0 && !visited[nexty][nextx][now.cnt]){
+                }else if(field[nexty][nextx] == 0 && now.cnt>=0 && !visited[nexty][nextx][now.cnt]){
                     q.offer(new Node(nexty, nextx, now.cnt, now.len+1));
                     visited[nexty][nextx][now.cnt] = true;
                 }
