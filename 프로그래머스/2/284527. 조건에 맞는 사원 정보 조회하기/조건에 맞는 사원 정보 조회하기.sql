@@ -1,16 +1,9 @@
--- 코드를 작성해주세요
-select (select sum(g2.score)
-        from hr_grade g2
-        group by g2.emp_no
-        order by sum(g2.score) desc
-        limit 1
-        ) as SCORE,
-        em.emp_no, em.emp_name, em.position, em.email
-from hr_employees em
-where em.emp_no = (select g2.emp_no
-                    from hr_grade g2
-                    group by g2.emp_no
-                     having sum(g2.score)
-                    order by sum(g2.score) desc
-                    limit 1)
-
+select sum(g.score) as score, em.emp_no, em.emp_name,  em.position, em.email
+from HR_EMPLOYEES em join HR_GRADE g
+on em.emp_no = g.emp_no
+group by em.emp_no
+having sum(g.score) = (select sum(g2.score) 
+                       from HR_GRADE g2
+                      group by g2.emp_no
+                      order by 1 desc
+                      limit 1)
