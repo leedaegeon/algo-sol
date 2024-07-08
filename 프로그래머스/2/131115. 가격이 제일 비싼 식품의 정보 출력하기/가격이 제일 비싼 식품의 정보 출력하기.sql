@@ -1,5 +1,4 @@
 -- 코드를 입력하세요
-SELECT PRODUCT_ID, PRODUCT_NAME, PRODUCT_CD, CATEGORY, PRICE
-from FOOD_PRODUCT
-order by price DESC
-limit 1
+SELECT f.product_id, f.product_name, f.product_cd, f.category, f.price
+from food_product f
+where f.price = (select max(f2.price) from food_product f2)
