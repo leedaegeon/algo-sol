@@ -1,7 +1,9 @@
 -- 코드를 입력하세요
-SELECT p.PRODUCT_CODE as PRODUCT_CODE, sum(p.price*o.sales_amount) as sales
-from product p 
-join OFFLINE_SALE o
-on p.product_id = o.product_id
-group by p.PRODUCT_CODE
-order by sales DESC, p.PRODUCT_CODE ASC
+SELECT p.product_code, sum(o.sales_amount)*p.price
+from offline_sale o join product p
+on o.product_id = p.product_id
+group by p.product_code
+order by 2 DESC, 1 ASC
+# select sum(o.sales_amount)*price
+# from offline_sale o join product p
+# where o.product_id = p.product_id and p.product_code = "B1000000"
