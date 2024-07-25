@@ -16,10 +16,11 @@ public class Main {
             jewel[i] = Integer.parseInt(br.readLine());
             end = Math.max(end, jewel[i]);
         }
-//        int temp = 0;
+//        int tempMid = 0;
         while(start < end){
             int mid = (start + end) / 2;
             int count = 0;
+//            System.out.println("start=" + start + ", end=" + end + ", mid=" + mid + "일 때 ");
 
             for(int j : jewel){
                 count += j/mid;
@@ -28,10 +29,12 @@ public class Main {
 
             if(count > n) start = mid + 1;
             else end = mid;
-//            temp = mid;
+//            System.out.println("나눠줄 수 있는 학생 수: " + count + " " + n);
+//            System.out.println();
         }
-//        System.out.println("mid: " + temp);
 
+//        System.out.println("결과: " + start);
         System.out.println(start);
     }
+
 }
