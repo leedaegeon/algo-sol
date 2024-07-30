@@ -24,24 +24,17 @@ public class Main {
         int answer = record;
         while(right < income.length){
 
-
-            if(record-income[left] <= record-income[left] + income[right]){
-                record = record -income[left] + income[right];
-
-                left++;
-                right++;
-                if(answer == record && answer != 0){
-                    cont++;
-                }else if(answer < record){
-                    cont = 1;
-                    answer = record;
-                }
-
-
-            } else {
-                left++;
-                right++;
+            record -= income[left];
+            record += income[right];
+            if(answer < record){
+                cont = 1;
+                answer = record;
+            }else if(answer == record && answer != 0){
+                cont++;
             }
+            left++;
+            right++;
+            
 //            System.out.println(record);
         }
         if(record == 0){
