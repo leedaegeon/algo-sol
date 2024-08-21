@@ -1,42 +1,46 @@
 import java.io.*;
-import java.util.Arrays;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] nk = br.readLine().split("\\s+");
-        int n = Integer.parseInt(nk[0]);
-        int k = Integer.parseInt(nk[1]);
-        int[] house = new int[n];
-
+        String[] input = br.readLine().split("\\s+");
+        int n, c;
+        n = Integer.parseInt(input[0]);
+        c = Integer.parseInt(input[1]);
+        List<Integer> house = new ArrayList<>();
+        int max = 0;
         for(int i=0; i<n; i++){
-            String site = br.readLine();
-            house[i] = Integer.parseInt(site);
+            house.add(Integer.parseInt(br.readLine()));
         }
-        Arrays.sort(house);
-        int left = 1;
-        int right = house[n - 1] - house[0] + 1;
-        while(left < right){
-            int mid = left + (right - left)/2;
-//            System.out.println(left + " " + right + " " + mid);
-//          두 공유기 사이 거리 mid를 최대한으로 -> upper bound를 사용하여 k개를 설치할 수 있기만 한 것이 아니라 k개 설치한
-            if(k <= calc(mid, house)){
-                left = mid+1;
+//        System.out.println(max);
+        Collections.sort(house);
+        max = house.get(house.size()-1) - house.get(0) + 1;
+        int start = 1;
+        int end = max;
+        int key = c;
+        while(start < end){
+            int mid = start + (end - start) / 2;
+            int lastHouse = house.get(0);
+            int cnt = 1;
+//            System.out.println("놓을 수 있는 거리: " + mid);
+            for(int i=1; i<house.size(); i++){
+                if(house.get(i) - lastHouse >= mid){
+                    cnt++;
+                    lastHouse = house.get(i);
+//                    System.out.print(house.get(i) + " ");
+
+                }
+            }
+
+            if(cnt >= key){
+                start = mid+1;
+
             }else{
-                right = mid;
+                end = mid;
             }
+//            System.out.println("공유기 놓은 개수: "+ cnt);
         }
-        System.out.println(left-1);
-    }
-    public static int calc(int dist, int[] house){
-        int cnt = 1;
-        int last = house[0];
-        for(int i=1; i<house.length; i++){
-            if(house[i] - last >= dist){
-                cnt++;
-                last = house[i];
-            }
-        }
-        return cnt;
+        System.out.println(start-1);
     }
 }
