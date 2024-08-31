@@ -1,8 +1,7 @@
 import java.util.*;
 class Solution {
     public int[] solution(long begin, long end) {
-        
-        // List<Integer> answer = new ArrayList<>();
+    
         int[] answer = new int[(int)end - (int)begin+ 1];
         int start = 0;
         
@@ -16,11 +15,11 @@ class Solution {
     }
     private static int getMaxDivisor(int num) {
         if (num == 1) {
-         return 0;
+            return 0;
         }
 
-        int possibleDivisor = -1;
-        for (int i = 2; i <= Math.sqrt(num); i++) {
+        int possibleDivisor = 1;
+        for (int i = 2; i <= (int)Math.sqrt(num); i++) {
             if (num % i == 0) {
                 possibleDivisor = i;
                 if (num / i <= Math.pow(10,7)) {
@@ -28,11 +27,6 @@ class Solution {
                 }
             }
         }
-
-        if(possibleDivisor != -1){
-            return possibleDivisor;
-        }
-
-        return 1;
+        return possibleDivisor;
    }
 }
