@@ -32,13 +32,12 @@ public class Main {
 
         subtreeSize = new int[n+1];
         getSubtreeSize(adjMat, r);
-        StringBuilder sb = new StringBuilder();
-        for(int query: queries){
-            sb.append(subtreeSize[query]).append("\n");
-        }
-        sb.delete(sb.length() - 1, sb.length());
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        bw.write(sb.toString());
+
+        for(int i=0; i<queries.size(); i++){
+            bw.write(Integer.toString(subtreeSize[queries.get(i)]));
+            if(i<queries.size()-1) bw.write("\n");
+        }
         bw.flush();
         br.close();
         bw.close();
