@@ -20,8 +20,8 @@ public class Main {
         int[] parents = new int[n + 1];
         parents = makeParent(parents);
 
-        List<Integer> costs = new ArrayList<>();
         int answer = 0;
+        int maxCost = 0;
         while(!pq.isEmpty()){
             Edge now = pq.poll();
             int parentA = findParent(now.left, parents);
@@ -30,16 +30,11 @@ public class Main {
                 continue;
             }
             parents = union(parentA, parentB, parents);
-
-            costs.add(now.cost);
+            maxCost = Math.max(maxCost, now.cost);
             answer += now.cost;
         }
 
-        costs.sort((o1, o2) -> o2 - o1);
-//        System.out.println(costs);
-//        System.out.println(minimumSpanningTree);
-//        System.out.println(Arrays.toString(parents));
-        answer -= costs.get(0);
+        answer -= maxCost;
         System.out.println(answer);
     }
     public static int findParent(int child, int[] parents){
@@ -50,9 +45,8 @@ public class Main {
     }
 
     public static int[] union(int parentA, int parentB, int[] parents) {
-//        int parentA = findParent(a, parents);
-//        int parentB = findParent(b, parents);
-
+        parentA = findParent(parentA, parents);
+        parentB = findParent(parentB, parents);
         if (parentA <= parentB) {
             parents[parentB] = parentA;
         }else{
