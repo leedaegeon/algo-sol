@@ -6,15 +6,18 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] input = br.readLine().split("\\s+");
-        int n = Integer.parseInt(input[0]);
-        int m = Integer.parseInt(input[1]);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+//        String[] input = br.readLine().split("\\s+");
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
 
         PriorityQueue<Edge> pq = new PriorityQueue<>();
         for(int i=0; i<m; i++){
-            input = br.readLine().split("\\s+");
-            Edge edge = new Edge(Integer.parseInt(input[0]), Integer.parseInt(input[1]), Integer.parseInt(input[2]));
+//            input = br.readLine().split("\\s+");
+            st = new StringTokenizer(br.readLine());
+            Edge edge = new Edge(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
             pq.offer(edge);
         }
         int[] parents = new int[n + 1];
@@ -45,8 +48,7 @@ public class Main {
     }
 
     public static int[] union(int parentA, int parentB, int[] parents) {
-        parentA = findParent(parentA, parents);
-        parentB = findParent(parentB, parents);
+        
         if (parentA <= parentB) {
             parents[parentB] = parentA;
         }else{
