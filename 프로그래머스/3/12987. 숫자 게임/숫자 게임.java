@@ -1,29 +1,27 @@
 import java.util.*;
 class Solution {
-
     public int solution(int[] A, int[] B) {
         int answer = 0;
         PriorityQueue<Integer> pqA = new PriorityQueue<>(Collections.reverseOrder());
+        for(int e: A){
+            pqA.offer(e);
+        }
         PriorityQueue<Integer> pqB = new PriorityQueue<>(Collections.reverseOrder());
-        for(int a: A){
-            pqA.offer(a);
-        }
-        for(int b: B){
-            pqB.offer(b);
+        for(int e: B){
+            pqB.offer(e);
         }
         
-        while(!pqB.isEmpty() ){
-            int b = pqB.poll();
-            while(!pqA.isEmpty() && b <= pqA.peek()){
-                pqA.poll();
-            }
-            if(!pqA.isEmpty() && b > pqA.peek()){
+        
+        while(!pqA.isEmpty()){
+            int a = pqA.poll();
+            int b = 0;
+            if(a < pqB.peek()){
                 answer++;
-                pqA.poll();
+                pqB.poll();
+                // b = pqB.poll();
             }
+            // System.out.println(a + " " + b);
         }
-        
         return answer;
     }
-    
 }
