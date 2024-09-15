@@ -2,40 +2,22 @@ import java.util.*;
 class Solution {
     public int solution(int[] stones, int k) {
         int answer = 0;
-
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for(int i=0; i<stones.length; i++){
-            min = Math.min(min, stones[i]);
-            max = Math.max(max, stones[i]);
-        }
-        if(min == max){
-            return min;
-        }
-
+        int min = 1;
+        int max = 200_000_000;
         answer = binSearch(min, max, stones, k);
-        
         return answer;
     }
     public int binSearch(int min, int max, int[] stones, int k){
-        boolean flag = true;
         int answer = 0;
         while(min < max){
             int mid = min + (max - min)/2;
-            
-            flag = jump(stones, mid, k);
-            
-            if(flag){
-                answer = Math.max(answer, mid);
-            }
-            if(flag){
+            if(jump(stones, mid, k)){
+                answer = mid;
                 min = mid+1;
             }else{
                 max = mid;
             }
         }
-        // System.out.println(flag + " " + min + " " + max + " " + answer);
-        
         return answer;
     }
     
@@ -55,11 +37,5 @@ class Solution {
         }
         return flag;
     }
-    public int[] deepCopy(int[] origin){
-        int[] retArr = new int[origin.length];
-        for(int i=0; i<origin.length; i++){
-            retArr[i] = origin[i];
-        }
-        return retArr;
-    }
+    
 }
