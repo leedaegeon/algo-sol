@@ -12,20 +12,12 @@ class Solution {
     }
 
     public long getSubSequenceSum(int[] sequence){
-        long[] cumSum = new long[sequence.length];
-        cumSum[0] = sequence[0];
-        long calcSum = cumSum[0];
-        long minSum = 0;
-        
-        for(int i=1; i<sequence.length; i++){
-            
-            cumSum[i] = cumSum[i-1] + sequence[i];
-            
-            // System.out.println(cumSum[i] + " - " + minSum +" "+ (cumSum[i] - minSum) +" vs " + calcSum);
-            
-            calcSum = Math.max(cumSum[i] - minSum, calcSum);
-            minSum = Math.min(minSum, cumSum[i]);
-            
+        long calcSum = sequence[0];  // 현재까지의 최대 부분합
+        long currentSum = sequence[0];  // 현재까지의 부분합
+
+        for(int i = 1; i < sequence.length; i++){
+            currentSum = Math.max(sequence[i], currentSum + sequence[i]);  // 부분합을 갱신
+            calcSum = Math.max(calcSum, currentSum);  // 최대 부분합을 갱신
         }
 
         // System.out.println(Arrays.toString(cumSum));
