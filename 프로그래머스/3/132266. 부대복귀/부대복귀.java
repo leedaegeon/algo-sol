@@ -1,12 +1,15 @@
 import java.util.*;
 class Solution {
     public int[] solution(int n, int[][] roads, int[] sources, int destination) {
-        int[] answer = new int[sources.length];
-//         destination에서 시작해서 source까지 최단거리
-//         시작지점이 destination인 다익스트라
+        
         List<List<Integer>> adjRoad = getAdjRoad(n, roads);
         int[] distance = getDistance(n, destination, adjRoad);
+        int[] answer = getAnswer(distance, sources);
         
+        return answer;
+    }
+    public int[] getAnswer(int[] distance, int[] sources){
+        int[] answer = new int[sources.length];
         for(int i=0; i<sources.length; i++){
             answer[i] = distance[sources[i]];
             if(answer[i] == 987654321){
@@ -32,6 +35,7 @@ class Solution {
         int[] distance = new int[n+1];
         Arrays.fill(distance, 987654321);
         distance[destination] = 0;
+        
         while(!edges.isEmpty()){
             Edge now = edges.poll();
             for(int next: adjRoad.get(now.end)){
