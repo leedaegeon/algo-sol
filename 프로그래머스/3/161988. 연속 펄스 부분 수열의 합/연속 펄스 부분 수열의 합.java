@@ -24,7 +24,7 @@ class Solution {
             // System.out.println(cumSum[i] + " - " + minSum +" "+ (cumSum[i] - minSum) +" vs " + calcSum);
             
             calcSum = Math.max(cumSum[i] - minSum, calcSum);
-            minSum = Math.min(minSum, cumSum[i-1]);
+            minSum = Math.min(minSum, cumSum[i]);
             
         }
 
