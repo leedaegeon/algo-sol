@@ -23,14 +23,11 @@ public class Main {
         }
 
         int[][] sum = extracted(n, m, matrix);
+        int subMatrix = getSubMatrix(n, m, sum);
+        System.out.println(subMatrix);
+    }
 
-//        for (int i = 1; i <= n; i++) {
-//            for (int j = 1; j <= m; j++) {
-//                System.out.print(sum[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-
+    private static int getSubMatrix(int n, int m, int[][] sum) {
 //        ....
 //        ....
 //        ....
@@ -63,7 +60,7 @@ public class Main {
                 }
             }
         }
-        System.out.println(subMatrix);
+        return subMatrix;
     }
 
 //      sum[i][j] == i행,j열 까지의 구간합 ...
@@ -71,7 +68,7 @@ public class Main {
 
 //      sum[i][j-1] == i행 j-1열까지의   ..
 //                                    ..
-
+    
 //      sum[i-1][j] == i-1행 j열까지의   ...
 //      sum[i][j] = sum[i][j-1] + sum[i-1][j] - sum[i-1][j-1] + matrix[i][j]
     private static int[][] extracted(int n, int m, int[][] matrix) {
