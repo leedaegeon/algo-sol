@@ -1,5 +1,5 @@
 -- 코드를 입력하세요
-SELECT ANIMAL_ID, NAME
-from ANIMAL_INS
-where NAME like "%el%" and ANIMAL_TYPE="Dog"
-order by NAME
+SELECT animal_id, name
+from animal_ins
+where name like '%el%' and animal_type = 'dog'
+order by name ASC
