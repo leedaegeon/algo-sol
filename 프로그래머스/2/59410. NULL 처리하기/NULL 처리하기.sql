@@ -1,9 +1,8 @@
--- 코드를 입력하세요
-SELECT ai.animal_type, 
-    case
-        when ai.name is null then "No name"
-        else ai.name
-        end as Name
-    , ai.SEX_UPON_INTAKE
-from animal_ins ai
-order by ai.animal_id ASC
+select animal_type, case
+                        when name is null then 'No name'
+                        else name
+                        end as name
+
+, sex_upon_intake
+from animal_ins
+order by animal_id ASC
