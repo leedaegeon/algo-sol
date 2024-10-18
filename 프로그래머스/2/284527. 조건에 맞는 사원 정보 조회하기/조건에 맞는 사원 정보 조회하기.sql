@@ -1,14 +1,5 @@
-select (select sum(g.score)
-                from hr_grade g 
-                where g.year = 2022 
-                group by g.emp_no
-                order by sum(g.score) DESC
-                limit 1) as score, e.emp_no, e.emp_name, e.position, e.email
-from hr_employees e
-where e.emp_no = (select g.emp_no
-                from hr_grade g 
-                where g.year = 2022 
-                group by g.emp_no
-                order by sum(g.score) DESC
-                limit 1)
-        
+select sum(g.score) as score, e.emp_no, e.EMP_NAME, e.position, e.email
+from hr_employees e join hr_grade g on e.emp_no = g.emp_no
+group by g.emp_no
+order by 1 DESC
+limit 1
