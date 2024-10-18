@@ -6,7 +6,8 @@ public class Main {
     static int[] dx = {0, 1, 0, -1};
     static int n,m;
     static int[][] field;
-    static Set<Cord> visited = new HashSet<>();
+//    static Set<Cord> visited = new HashSet<>();
+    static boolean[][] visited;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -35,23 +36,23 @@ public class Main {
         }
         Queue<Cord> q = new ArrayDeque<>();
         q.add(start);
-        visited.add(start);
+//        visited.add(start);
+        visited = new boolean[n + 2][m + 2];
         dist[start.y][start.x] = 0;
-
+        visited[start.y][start.x] = true;
         while (!q.isEmpty()) {
             Cord now = q.poll();
 
             for(int i=0; i<4; i++){
                 int nexty = now.y + dy[i];
                 int nextx = now.x + dx[i];
-                Cord next = new Cord(nexty, nextx);
-                if (field[nexty][nextx] == 0 || visited.contains(next)) {
+                if (field[nexty][nextx] == 0 || visited[nexty][nextx]) {
                     continue;
                 }
 //                start~next > start~now 비용 + now~next 비용
-                if (dist[next.y][next.x] > now.cost + 1) {
-                    dist[next.y][next.x] = now.cost + 1;
-                    visited.add(next);
+                if (dist[nexty][nextx] > now.cost + 1) {
+                    dist[nexty][nextx] = now.cost + 1;
+                    visited[nexty][nextx] = true;
                     q.add(new Cord(nexty, nextx, now.cost+1));
                 }
             }
