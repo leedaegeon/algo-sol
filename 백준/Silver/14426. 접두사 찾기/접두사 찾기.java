@@ -1,9 +1,13 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
 public class Main {
     static int n, m;
-    static TriNode root = new TriNode();
-    public static void main(String[] args) throws IOException{
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
@@ -13,42 +17,39 @@ public class Main {
 
         for(int i=0; i<n; i++){
             words[i] = br.readLine();
-            insert(words[i]);
         }
+        Arrays.sort(words);
         int answer = 0;
         for(int i=0; i<m; i++){
             pre[i] = br.readLine();
-            if(searchPrefix(pre[i])){
+        }
+        for(int i=0; i<m; i++){
+            if(binSearch(words, pre[i], i)){
+//                System.out.println(pre[i]);
                 answer++;
             }
         }
         System.out.println(answer);
+    }
 
-    }
-    static boolean searchPrefix(String pre){
-        TriNode current = root;
-        for(char c: pre.toCharArray()){
-            if(!current.children.containsKey(c)){
-                return false;
+    private static boolean binSearch(String[] words, String pre, int i) {
+        int l = 0;
+        int r = words.length;
+        int len = pre.length();
+        while(l < r){
+            int mid = l + (r-l)/2;
+            String sub = words[mid].substring(0, len);
+            if(sub.equals(pre)){
+                return true;
+            }else{
+                if(sub.compareTo(pre) < 0){
+//                    System.out.println(sub + " " + pre);
+                    l = mid+1;
+                }else{
+                    r = mid;
+                }
             }
-            current = current.children.get(c);
         }
-        return true;
-    }
-    static void insert(String word){
-        TriNode current = root;
-        for(char c: word.toCharArray()){
-            current.children.putIfAbsent(c, new TriNode());
-            current = current.children.get(c);
-        }
-        current.isEndOfWord = true;
-    }
-    static class TriNode{
-        Map<Character, TriNode> children;
-        boolean isEndOfWord;
-        TriNode(){
-            children = new HashMap<>();
-            isEndOfWord = false;
-        }
+        return false;
     }
 }
